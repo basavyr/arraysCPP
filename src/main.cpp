@@ -50,6 +50,7 @@ public:
     }
     static T Sum(std::vector<T> &);
     static void show(std::vector<T> &);
+    static void Update(std::vector<T> &);
 };
 
 template <class T>
@@ -73,14 +74,65 @@ void VectorOperations<T>::show(std::vector<T> &vec)
     std::cout << std::flush;
 }
 
+template <class T>
+void VectorOperations<T>::Update(std::vector<T> &vec)
+{
+    for (int it = 0; it != vec.size(); ++it)
+    {
+        auto item = std::chrono::system_clock::now();
+        std::time_t date = std::chrono::system_clock::to_time_t(item);
+        // vec.at(it) = static_cast<T>(item);
+        // std::cout << typeid(item).name() << " " << typeid(date).name();
+        // newLine();
+        // vec.at(it) = item;
+    }
+}
+
+template <typename T>
+void printarray(T vec)
+{
+    size_t size = sizeof(vec);
+    std::cout << size;
+    newLine();
+    std::cout << sizeof(T);
+    newLine();
+    std::cout << sizeof(vec[0]);
+    newLine();
+    std::cout << vec[0];
+    newLine();
+}
+
 int main()
 {
     const std::string name = "Robert";
     app(name);
-    VectorOperations<double> vop(6, 69.420);
-    std::cout << vop.Sum(vop.array);
+    auto now = std::chrono::system_clock::now();
+    std::time_t date = std::chrono::system_clock::to_time_t(now);
+    std::string utc = std::ctime(&date);
+    // std::cout << utc;
+
+    auto stringsize = utc.length();
+    std::cout << stringsize;
+    newLine();
+    char sdate[stringsize + 1];
+    strcpy(sdate, utc.c_str());
+    std::cout << sizeof sdate;
+    newLine();
+    printarray(sdate);
+    newLine();
+    // std::cout << typeid(utc).name();
+    newLine();
+    VectorOperations<double> vop(6, 'a');
+    // std::cout << vop.Sum(vop.array);
+    newLine();
+    /* 
+    vop.show(vop.array);
+    newLine(); */
+
+    /*  vop.Update(vop.array);
     newLine();
     vop.show(vop.array);
     newLine();
+    */
     return 0;
 }
